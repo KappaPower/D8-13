@@ -1,0 +1,64 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% load custom_tags %}
+
+{% block title %}
+Articles
+{% endblock title %}
+
+{% block content %}
+<h1>Тут должно быть описание новости</h1>
+
+<form action="" method="get">
+    {{ filterset.form.as_p }}
+    <input type="submit" value="Найти"/>
+</form>
+
+<hr>
+{% if news %}
+    <table>
+        <tr>
+            <td>Дата</td>
+            <td>Описание</td>
+            <td>Категория</td>
+        </tr>
+        {% for news in news %}
+            {% if news.category_news == 'AR' %}
+                <tr>
+                    <td>{{ news.creation_date }}</td>
+                    <td>{{ news.article_header | truncatechars:30 }}</td>
+                    <td>{{ news.category }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+{% else %}
+    <h2>Товаров нет!</h2>
+{% endif %}
+
+{# Добавление пагинации #}
+
+{# Информация о предыдущих страницах #}
+{% if page_obj.has_previous %}
+    <a href="?{% url_replace page=1 %}">1</a>
+    {% if page_obj.previous_page_number != 1 %}
+        ...
+        <a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+    {% endif %}
+{% endif %}
+
+{# Информация о текущей странице #}
+{{ page_obj.number }}
+
+{# Информация о следующих страницах #}
+{% if page_obj.has_next %}
+    <a href="?{% url_replace page=page_obj.next_page_number %}"> {{ page_obj.next_page_number }} </a>
+    {% if paginator.num_pages != page_obj.next_page_number %}
+        ...
+        <a href="?{% url_replace page=page_obj.paginator.num_pages %}"> {{ page_obj.paginator.num_pages }} </a>
+    {% endif %}
+{% endif %}
+
+{% endblock content %}

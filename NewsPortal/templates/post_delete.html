@@ -1,0 +1,42 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+{% block title %}
+Post Delete
+{% endblock title %}
+
+
+
+{% block content %}
+
+<h2>Вы действительно хотите удалить данный пост?</h2>
+
+<section class="post">
+  <header class="post-header">
+    <img class="post-avatar" src="/{{  post.author.avatar }}" alt="avatar" /><a href="./{{n.id}}">
+      <h2 class="post-title">{{post.title|censor}}</h2>
+    </a>
+    <p class="post-meta">By
+      <a class="post-author" href="#">
+        {{ post.author.authorUsername }}
+      </a>
+      on
+      <i>{{ post.dateCreated|date:'d M Y H:i' }} Tags: </i>
+      <a class="post-category post-category-{{post.categoryType}}" href="#">
+        {{post.get_categoryType_display }}
+      </a>
+    </p>
+  </header>
+  <div class="post-description">
+    <p>{{ post.text|censor | truncatewords:25 }}</p>
+    <p><em>Article rating: {{post.rating}} </em></p>
+  </div>
+</section>
+
+
+<form method="POST">
+  {% csrf_token %}
+  <button class="pure-button button-error">
+    <i class="bi bi-trash"></i>
+    Delete</button>
+</form>
+{% endblock content %}

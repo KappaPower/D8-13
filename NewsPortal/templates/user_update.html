@@ -1,0 +1,14 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %} User Update {% endblock title %}
+{% block content %}
+{{request.author.authorUser}}
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Change" />
+</form>
+{% endblock content %}

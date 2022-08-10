@@ -1,0 +1,44 @@
+body {
+  display: flex;
+  place-content: center;
+}
+h1 {
+  font-family: "Poppins", sans-serif;
+  font-size: 30vmin;
+  line-height: 60vmin;
+}
+
+.gradient-text {
+  color: transparent;
+  background: conic-gradient(
+  #d9d7f1 12%,
+  #baabda 33%,
+  #e7fbbe 55%,
+  #ffcbcb 70%,
+  #b5deff 87%);
+  background-size: 350%;
+  background-position: -6ch -10ch;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: 2s expand 1s ease forwards infinite;
+  cursor: pointer;
+  animation-play-state: paused;
+  animation-direction: alternate-reverse;
+}
+
+.gradient-text:hover {
+
+  animation-play-state: running;
+}
+
+@keyframes expand {
+  0% {
+    background-size: 50%;
+    background-position: 0 0;
+  }
+  100% {
+    background-size: 350%;
+    background-position: -6ch -10ch;
+  }
+}
